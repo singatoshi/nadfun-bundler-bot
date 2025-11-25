@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import { config } from './config';
 import { WalletManager } from './utils/walletManager';
+import { logger } from '../utils/logger';
 
 const NADFUN_ABI = [
   // Simplified ABI for Nadfun launchpad - adjust based on actual contract
@@ -23,20 +24,20 @@ export class NadfunBundler {
   }
 
   async launchAndFundToken(name: string, symbol: string, supply: bigint): Promise<string> {
-    console.log(`Launching token: ${name} (${symbol})`);
+    logger.info(`Launching token: ${name} (${symbol})`);
     
     // Step 1: Launch token
     const launchTx = await this.contract.launchToken(name, symbol, supply);
     const receipt = await launchTx.wait();
     const tokenAddress = receipt?.logs[0]?.topics[1] || ''; // Parse from event
     const tokenAddr = ethers.getAddress(tokenAddress);
-    console.log(`Token launched: ${tokenAddr}`);
+    logger.info(`Token launched: ${tokenAddr}`);
 
     // Step 2: Fund bonding curve
     const fundAmount = ethers.parseEther(config.bondingCurveFundAmount.toString());
     const fundTx = await this.contract.fundBondingCurve(tokenAddr, fundAmount);
     await fundTx.wait();
-    console.log(`Funded bonding curve with ${config.bondingCurveFundAmount} ETH`);
+    logger.info(`Funded bonding curve with ${config.bondingCurveFundAmount} ETH`);
 
     // Step 3: Distribute funds to trading wallets (stealth)
     const totalDist = fundAmount * BigInt(2); // Example: Distribute double for trades

@@ -1,5 +1,6 @@
 import { config } from './config';
 import { NadfunBundler } from './bundler';
+import { logger } from './utils/logger';
 
 async function main() {
   if (config.privateKeys.length === 0) {
@@ -15,9 +16,9 @@ async function main() {
       'TTK',
       ethers.parseEther('1000000') // 1M supply
     );
-    console.log(`Bundling complete. Token: ${tokenAddress}`);
+    logger.info(`Bundling complete. Token: ${tokenAddress}`);
   } catch (error) {
-    console.error('Error in bundling:', error);
+    logger.error(`Error in bundling: ${error}`);
   }
 }
 
