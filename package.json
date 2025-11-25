@@ -1,0 +1,33 @@
+{
+  "name": "nadfun-bundler",
+  "version": "1.0.0",
+  "description": "Nadfun bundler bot on Monad chain",
+  "keywords": [
+    "nadfun",
+    "monad",
+    "bundler",
+    "bot"
+  ],
+  "license": "ISC",
+  "author": "leonas sabonis",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@types/node": "^24.10.1",
+    "axios": "^1.13.2",
+    "bip39": "^3.1.0",
+    "chalk": "^5.6.2",
+    "ethers": "^6.15.0",
+    "express": "^5.1.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
