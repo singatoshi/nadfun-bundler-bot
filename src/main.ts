@@ -7,14 +7,14 @@ async function main() {
     throw new Error('No private keys provided in .env');
   }
 
-  const bundler = new NadfunBundler(config.privateKeys[0]); // Master key
+  const bundler = new NadfunBundler(config.privateKeys[0]);
+  console.log("bundler", bundler);
 
   try {
-    // Example: Launch a token
     const tokenAddress = await bundler.launchAndFundToken(
       'TestToken',
       'TTK',
-      ethers.parseEther('1000000') // 1M supply
+      ethers.parseEther('1000000')
     );
     logger.info(`Bundling complete. Token: ${tokenAddress}`);
   } catch (error) {
